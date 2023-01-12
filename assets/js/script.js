@@ -1,6 +1,13 @@
+
 function localStorage(){
   
 }
+
+
+function tmdb () {
+
+}
+
 function modal(){
 
 }
