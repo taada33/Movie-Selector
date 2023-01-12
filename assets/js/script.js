@@ -1,3 +1,7 @@
 function youtubeTrailer() {
 
 }
+
+function youtubeSearchResults() {
+    
+}
