@@ -1,4 +1,9 @@
 
+function localStorage(){
+  
+}
+
+
 function tmdb () {
 
 }
