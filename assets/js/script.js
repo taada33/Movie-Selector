@@ -1,6 +1,6 @@
 function modal(){
-}
 
+}
 
 function youtubeTrailer() {
 
@@ -8,4 +8,8 @@ function youtubeTrailer() {
 
 function youtubeSearchResults() {
 
+}
+
+function createElements(){
+    
 }
