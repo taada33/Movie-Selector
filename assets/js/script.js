@@ -7,6 +7,27 @@ function localStorage(){
 
 function tmdb () {
 
+  var getMovieTitle = function (title) {
+    // var apiUrl = 'https://api.github.com/users/' + user + '/repos';
+    var apiUrl = 'https://api.themoviedb.org/3/review/{review_id}?api_key=<<api_key>>';
+  
+    fetch(apiUrl)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (data) {
+            displayRepos(data, user);
+          });
+        } else {
+          alert('Error: ' + response.statusText);
+        }
+      })
+      .catch(function (error) {
+        alert('Unable to connect to GitHub');
+      });
+  };
+  
+
+
 }
 
 function modal(){
