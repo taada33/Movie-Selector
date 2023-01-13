@@ -7,22 +7,22 @@ function localStorage(){
 
 function tmdb () {
 
-  var getMovieTitle = function (title) {
-    // var apiUrl = 'https://api.github.com/users/' + user + '/repos';
-    var apiUrl = 'https://api.themoviedb.org/3/review/{review_id}?api_key=<<api_key>>';
+  var getMovieReview = function (title) {
+    const api_key = "3abe1bfe865a6d503f549804367c9123"
+    var apiUrl = 'https://api.themoviedb.org/3/review/'+ reviewId + '?' + api_key + '=<<'+ api_key+'>>';//movie id - what is review id in tmdb?  
   
     fetch(apiUrl)
       .then(function (response) {
-        if (response.ok) {
+        if (response.overview) {
           response.json().then(function (data) {
-            displayRepos(data, user);
+            displayReview(data, user);
           });
         } else {
           alert('Error: ' + response.statusText);
         }
       })
       .catch(function (error) {
-        alert('Unable to connect to GitHub');
+        alert('Unable to connect to TMDB');
       });
   };
   
