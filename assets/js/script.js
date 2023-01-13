@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-YoutubeSearch();
-
 function modal(){
-=======
+}
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -26,7 +24,6 @@ btn.onclick = function() {
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
->>>>>>> 30a79dd8a457c3065a3d9757b2a2b1160b348cc2
 }
 
   // When the user clicks anywhere outside of the modal, close it
@@ -72,9 +69,8 @@ function youtubeTrailer() {
 
 }
 
-let MovieTitle ;
 
-<<<<<<< HEAD
+
 
 function YoutubeSearch() {  
 
@@ -96,12 +92,3 @@ const options = {
         console.log(error);    
     })
 }
-=======
-}
-
-function createElements(){
-    
-}
-
-
->>>>>>> 30a79dd8a457c3065a3d9757b2a2b1160b348cc2
