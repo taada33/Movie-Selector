@@ -37,9 +37,9 @@ submitBtn.onclick = function(){
     event.preventDefault();
 
     //parameters for fetch urls
-    let title = titleInputEl.value;
-    let actor = actorInputEl.value;
-    let genre = genreInputEl.value;
+    title = titleInputEl.value;
+    actor = actorInputEl.value;
+    genre = genreInputEl.value;
 
     titleInputEl.value = "";
     actorInputEl.value = "";
@@ -50,7 +50,7 @@ submitBtn.onclick = function(){
     // console.log("title: " + title + " Actor: " + actor + " Genre: " + genre)
 
     //run fetch functions here
-
+    YoutubeSearch();  
 }
 
 function localStorage(){
@@ -68,3 +68,27 @@ function tmdb () {
 function youtubeTrailer() {
 
 }
+
+
+
+const options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
+        'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
+    }
+};
+    
+function YoutubeSearch() {
+
+const url = `https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${encodeURIComponent(title)}`
+fetch(url, options) 
+    .then(response => {
+return response.json();  
+}).then(data => {
+    console.log(data);
+})
+.catch(error => console.log(error))
+
+}
+    
