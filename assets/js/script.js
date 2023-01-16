@@ -69,9 +69,84 @@ function youtubeTrailer() {
 function youtubeSearchResults() {
 
 }
+//takes array of fetch data objects from tmdb, utelly, and youtubesearch
+function createElements(objArray){
+    titleEl = document.querySelector('.movie-title');
+    descriptionEl = document.querySelector('.description-other');
+    trailerEl = document.querySelector('.trailor-div');
 
-function createElements(){
+    //working with youtube search results object
+    //creates array of videos filtered from non-video types
+    let trailerArray = [];
+    for(let i = 0; i < objArray[0].items.length; i++){
+        if(objArray[0].items[i].type === "video"){
+            let videoObj = {
+                title: objArray[0].items[i].title,
+                url: objArray[0].items[i].url,
+                id: objArray[0].items[i].id
+            }
+            //may need to assign first element in array differently
+            trailerArray.push(videoObj);
+        }
+    }
+
+    videoEl = document.createElement('iframe');
+    videoEl.src = trailerArray[0].url;
+    videoEl.width = "420";
+    videoEl.height= "345";
+
+    previousVideoBtn = document.createElement("button");
+    previousVideoBtn.innerHTML = "Previous";
+    nextVideoBtn = document.createElement("button");
+    nextVideoBtn.innerHTML = "Next";
+
+    previousVideoBtn.addEventListener('click', function(){
+        let index;
+        for(let i = 0; i < trailerArray.length; i++){
+            if(videoEl.src === trailerArray[i].url){
+               index = i; 
+            }
+        }
+        index--;
+        if(index < 0){
+            index = trailerArray.length - 1;
+        }
+        videoEl.src = trailerArray[index].url;
+        videoTitleEl.textContent = trailerArray[index].title;
+    });
+
+    nextVideoBtn.addEventListener('click', function(){
+        let index;
+        for(let i = 0; i < trailerArray.length; i++){
+            if(videoEl.src === trailerArray[i].url){
+               index = i; 
+            }
+        }
+        index++;
+        if(index > trailerArray.length -1){
+            index = 0;
+        }
+        videoEl.src = trailerArray[index].url;
+        videoTitleEl.textContent = trailerArray[index].title;
+    });
+
+
+    videoTitleEl = document.createElement('h3');
+    videoTitleEl.textContent = trailerArray[0].title;
+
+    trailerEl.textContent = "";
+    trailerEl.appendChild(videoEl);
+    trailerEl.appendChild(previousVideoBtn);
+    trailerEl.appendChild(nextVideoBtn);
+    trailerEl.appendChild(videoTitleEl);
+
+        
+
+
+
     
+
+
 }
 
 
