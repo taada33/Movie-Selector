@@ -57,7 +57,22 @@ function localStorage(){
 
 function tmdb () {
 
+  var getReview = function (Title) {
+    var apiUrl = 'https://api.themoviedb.org/3/review/' + review_id + '?' + api_key + '=<<' + api_key + '>>''
+  
+    fetch(apiUrl).then(function (response) {
+      if (response.overview) {
+        response.json().then(function (data) { //data back from api
+          displayReviews(data.items, language);//(array, string )
+        });
+      } else {
+        alert('Error: ' + response.statusText);
+      }
+    });
+  };
+
 }
+
 
 
 
