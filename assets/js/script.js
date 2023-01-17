@@ -58,10 +58,7 @@ function localStorage(){
   
 }
 
-const api_key = '3abe1bfe865a6d503f549804367c9123';
-
-
-const api_key = '3abe1bfe865a6d503f549804367c9123';
+const api_key = '3abe1bfe865a6d503f549804367c9123'; {
 
 function searchForMovies(userInput) {
   var apiUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&api_key=${api_key}&language=en-US&page=1&include_adult=false`
@@ -80,7 +77,7 @@ function searchForMovies(userInput) {
       // displayReviews();
     });
 };
-
+}
 
 
 
@@ -204,6 +201,4 @@ function createElements(objArray){
     trailerEl.appendChild(nextVideoBtn);
     trailerEl.appendChild(videoTitleEl);
 }
-
-
-    
+}
