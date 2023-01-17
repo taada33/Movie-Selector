@@ -61,14 +61,27 @@ function tmdb () {
 
 
 
+const options = {
+  method: 'GET',
+  headers: {
+      'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
+      'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
+  }
+};
+  
+function YoutubeSearch() {
 
-function youtubeTrailer() {
+const url = `https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${encodeURIComponent(title)}`
+fetch(url, options) 
+  .then(response => {
+return response.json();  
+}).then(data => {
+  console.log(data);
+})
+.catch(error => console.log(error))
 
 }
 
-function youtubeSearchResults() {
-
-}
 //takes array of fetch data objects from tmdb, utelly, and youtubesearch
 function createElements(objArray){
     titleEl = document.querySelector('.movie-title');
@@ -139,14 +152,6 @@ function createElements(objArray){
     trailerEl.appendChild(previousVideoBtn);
     trailerEl.appendChild(nextVideoBtn);
     trailerEl.appendChild(videoTitleEl);
-
-        
-
-
-
-    
-
-
 }
 
 
