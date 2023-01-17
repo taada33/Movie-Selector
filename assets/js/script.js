@@ -54,7 +54,31 @@ submitBtn.onclick = function () {
 }
 
 function localStorage() {
+  var searchHistory = [];
 
+  function renderSearches() {
+    // Clear todoList element and update todoCountSpan
+    // todoList.innerHTML = "";
+    // todoCountSpan.textContent = todos.length;
+  
+    // Render a new li for each todo
+    for (var i = 0; i < searchHistory.length; i++) { //renderscores highscoreuser.length
+      var History = searchHistory[i];
+  
+      var li = document.createElement("li");
+      li.textContent = History;
+      li.setAttribute("data-index", i);
+  
+      var button = document.createElement("button");
+      button.textContent = "Reviewed ✔️";
+  
+      li.appendChild(button);
+      todoList.appendChild(li);
+    }
+  }
+
+
+ 
 }
 
 searchForMovies(title)
