@@ -6,11 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- some css framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                clifford: '#da373d',
+              }
+            }
+          }
+        }
+      </script>
     <title>Movie Selector</title>
 </head>
 <body>
     <header>
-        <h1>Movie Selector</h1>
+        <h1 class="text-3xl font-bold underline text-clifford">Movie Selector</h1>
     </header>
 
         <!-- Trigger/Open The Modal -->
