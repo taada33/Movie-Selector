@@ -50,7 +50,7 @@ submitBtn.onclick = function(){
     // console.log("title: " + title + " Actor: " + actor + " Genre: " + genre)
 
     //run fetch functions here
-    YoutubeSearch();  
+    YoutubeSearch(title);  
 }
 
 function localStorage(){
@@ -72,14 +72,17 @@ const options = {
   }
 };
   
-function YoutubeSearch() {
-
+function YoutubeSearch(title) {
+ 
+title = title + "trailer"
 const url = `https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${encodeURIComponent(title)}`
 fetch(url, options) 
   .then(response => {
 return response.json();  
 }).then(data => {
   console.log(data);
+  let dataArray = [data];
+  createElements(dataArray);
 })
 .catch(error => console.log(error))
 
@@ -99,7 +102,7 @@ function createElements(objArray){
             let videoObj = {
                 title: objArray[0].items[i].title,
                 url: objArray[0].items[i].url,
-                id: objArray[0].items[i].id
+                id: objArray[0].items[i].id,
             }
             //may need to assign first element in array differently
             trailerArray.push(videoObj);
@@ -107,7 +110,7 @@ function createElements(objArray){
     }
 
     videoEl = document.createElement('iframe');
-    videoEl.src = trailerArray[0].url;
+    videoEl.src = "https://www.youtube.com/embed/" + trailerArray[0].id;
     videoEl.width = "420";
     videoEl.height= "345";
 
