@@ -134,9 +134,9 @@ return response.json();
 
 //takes array of fetch data objects from tmdb, utelly, and youtubesearch
 function createElements(objArray){
-    titleEl = document.querySelector('.movie-title');
-    descriptionEl = document.querySelector('.description-other');
-    trailerEl = document.querySelector('.trailor-div');
+    let titleEl = document.querySelector('.movie-title');
+    let descriptionEl = document.querySelector('.description-other');
+    let trailerEl = document.querySelector('.trailor-div');
 
     //working with youtube search results object
     //creates array of videos filtered from non-video types
@@ -158,9 +158,9 @@ function createElements(objArray){
     videoEl.width = "420";
     videoEl.height= "345";
 
-    previousVideoBtn = document.createElement("button");
+    let previousVideoBtn = document.createElement("button");
     previousVideoBtn.innerHTML = "Previous";
-    nextVideoBtn = document.createElement("button");
+    let nextVideoBtn = document.createElement("button");
     nextVideoBtn.innerHTML = "Next";
 
     previousVideoBtn.addEventListener('click', function(){
@@ -202,9 +202,5 @@ function createElements(objArray){
     trailerEl.appendChild(previousVideoBtn);
     trailerEl.appendChild(nextVideoBtn);
     trailerEl.appendChild(videoTitleEl);
+  }
 }
-
-
-    
-
-    
