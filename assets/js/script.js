@@ -47,7 +47,7 @@ submitBtn.onclick = function(){
     // console.log("title: " + title + " Actor: " + actor + " Genre: " + genre)
 
     //run fetch functions here
-    // YoutubeSearch(title);
+    YoutubeSearch(title);
     searchForMovies(title);
 
 }
