@@ -50,31 +50,78 @@ submitBtn.onclick = function(){
     // console.log("title: " + title + " Actor: " + actor + " Genre: " + genre)
 
     //run fetch functions here
-    YoutubeSearch(title);  
+    // YoutubeSearch(title);
+    searchForMovies(title);
 }
 
 function localStorage(){
   
 }
 
+const api_key = '3abe1bfe865a6d503f549804367c9123';
 
-function tmdb () {
 
+const api_key = '3abe1bfe865a6d503f549804367c9123';
+
+function searchForMovies(userInput) {
+  var apiUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&api_key=${api_key}&language=en-US&page=1&include_adult=false`
+
+  fetch(apiUrl)
+    .then(function (response) {
+      // convert json to regular Javascript object
+      return response.json();
+    })
+    .then(function (data) {
+      console.log('Search results are', data)
+      var { results } = data; // destructuring results from data;
+      var { id } = results[0];
+      getReview(id);
+      // run displayReviews function here
+      // displayReviews();
+    });
+};
+
+
+
+
+// this is also a function definition - tmdb
+// which hasn't been invoked yet.
+function getReview(Movie_id) {
+  var apiUrl = `https://api.themoviedb.org/3/movie/${Movie_id}/reviews?api_key=${api_key}`
+
+  fetch(apiUrl)
+    .then(function (response) {
+      // convert json to regular Javascript object
+      return response.json();
+    })
+    .then(function (data) {
+      console.log('Movie reviews are', data);
+      var { results } = data; // destructuring results from data;
+      // what do you want to do with your array of review objects?
+      // maybe you run displayReviews function here
+      displayReviews(results);
+    });
+
+};
+
+function displayReviews(movieReviews) {
+  // loop through your array and show the reviews to the screen
+  for (let i = 0; i < movieReviews.length; i++) {
+    console.log(movieReviews[i]);
+    // and so on...
+  }
 }
 
-
-
 const options = {
-  method: 'GET',
-  headers: {
-      'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
-      'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
-  }
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
+        'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
+    }
 };
   
 function YoutubeSearch(title) {
- 
-title = title + "trailer"
+title = title + " trailer"
 const url = `https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${encodeURIComponent(title)}`
 fetch(url, options) 
   .then(response => {
@@ -85,8 +132,6 @@ return response.json();
   createElements(dataArray);
 })
 .catch(error => console.log(error))
-
-}
 
 //takes array of fetch data objects from tmdb, utelly, and youtubesearch
 function createElements(objArray){
@@ -130,7 +175,7 @@ function createElements(objArray){
         if(index < 0){
             index = trailerArray.length - 1;
         }
-        videoEl.src = trailerArray[index].url;
+        videoEl.src = "https://www.youtube.com/embed/" + trailerArray[index].id;
         videoTitleEl.textContent = trailerArray[index].title;
     });
 
@@ -145,7 +190,7 @@ function createElements(objArray){
         if(index > trailerArray.length -1){
             index = 0;
         }
-        videoEl.src = trailerArray[index].url;
+        videoEl.src = "https://www.youtube.com/embed/" + trailerArray[index].id;
         videoTitleEl.textContent = trailerArray[index].title;
     });
 
@@ -159,4 +204,6 @@ function createElements(objArray){
     trailerEl.appendChild(nextVideoBtn);
     trailerEl.appendChild(videoTitleEl);
 }
+
+
     
