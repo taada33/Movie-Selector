@@ -57,6 +57,8 @@ function localStorage() {
 
 }
 
+searchForMovies(title)
+
 function searchForMovies(userInput) {
   var apiUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&api_key=${api_key}&language=en-US&page=1&include_adult=false`
 
@@ -74,6 +76,8 @@ function searchForMovies(userInput) {
       // displayReviews();
     });
 };
+
+
 
 
 // this is also a function definition - tmdb
@@ -104,7 +108,7 @@ function displayReviews(movieReviews) {
   }
 }
 
-//}
+
 
 
 
