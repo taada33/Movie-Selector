@@ -1,3 +1,6 @@
+function modal(){
+}
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -34,9 +37,9 @@ submitBtn.onclick = function(){
     event.preventDefault();
 
     //parameters for fetch urls
-    let title = titleInputEl.value;
-    let actor = actorInputEl.value;
-    let genre = genreInputEl.value;
+    title = titleInputEl.value;
+    actor = actorInputEl.value;
+    genre = genreInputEl.value;
 
     titleInputEl.value = "";
     actorInputEl.value = "";
@@ -49,7 +52,6 @@ submitBtn.onclick = function(){
     //run fetch functions here
     // YoutubeSearch(title);
     searchForMovies(title);
-
 }
 
 function localStorage(){
@@ -109,13 +111,12 @@ function displayReviews(movieReviews) {
   }
 }
 
-
 const options = {
-  method: 'GET',
-  headers: {
-      'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
-      'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
-  }
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
+        'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
+    }
 };
   
 function YoutubeSearch(title) {
@@ -130,8 +131,6 @@ return response.json();
   createElements(dataArray);
 })
 .catch(error => console.log(error))
-
-}
 
 //takes array of fetch data objects from tmdb, utelly, and youtubesearch
 function createElements(objArray){
@@ -206,3 +205,6 @@ function createElements(objArray){
 }
 
 
+    
+
+    
