@@ -1,5 +1,61 @@
-function modal(){
-}
+
+let titleEl = document.querySelector('.movie-title');
+let descriptionEl = document.querySelector('.description-other');
+let trailerEl = document.querySelector('.trailor-div');
+let reviewEl = document.querySelector('.review-container')
+
+trailerEl.style.display = 'none';
+
+let previousVideoBtn = document.createElement("button");
+previousVideoBtn.innerHTML = "Previous";
+let nextVideoBtn = document.createElement("button");
+nextVideoBtn.innerHTML = "Next";
+
+videoTitleEl = document.createElement('h3');
+
+videoEl = document.createElement('iframe');
+videoEl.allow = "fullscreen";
+videoEl.width = "420";
+videoEl.height= "345";
+
+trailerEl.appendChild(videoEl);
+trailerEl.appendChild(previousVideoBtn);
+trailerEl.appendChild(nextVideoBtn);
+trailerEl.appendChild(videoTitleEl);
+
+let trailerArray = [];
+let dataArray = [];
+
+previousVideoBtn.addEventListener('click', function(){
+  let index;
+  for(let i = 0; i < trailerArray.length; i++){
+      if(videoEl.src === "https://www.youtube.com/embed/" + trailerArray[i].id){
+         index = i; 
+      }
+  }
+  index--;
+  if(index < 0){
+      index = trailerArray.length - 1;
+  }
+  videoEl.src = "https://www.youtube.com/embed/" + trailerArray[index].id;
+  videoTitleEl.textContent = trailerArray[index].title;
+});
+
+nextVideoBtn.addEventListener('click', function(){
+  let index;
+  for(let i = 0; i < trailerArray.length; i++){
+      if(videoEl.src === "https://www.youtube.com/embed/" + trailerArray[i].id){
+         index = i; 
+      }
+  }
+  index++;
+  if(index > trailerArray.length -1){
+      index = 0;
+  }
+  videoEl.src = "https://www.youtube.com/embed/" + trailerArray[index].id;
+  videoTitleEl.textContent = trailerArray[index].title;
+});
+
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -37,9 +93,9 @@ submitBtn.onclick = function(){
     event.preventDefault();
 
     //parameters for fetch urls
-    title = titleInputEl.value;
-    actor = actorInputEl.value;
-    genre = genreInputEl.value;
+    let title = titleInputEl.value;
+    let actor = actorInputEl.value;
+    let genre = genreInputEl.value;
 
     titleInputEl.value = "";
     actorInputEl.value = "";
@@ -50,7 +106,7 @@ submitBtn.onclick = function(){
     // console.log("title: " + title + " Actor: " + actor + " Genre: " + genre)
 
     //run fetch functions here
-    YoutubeSearch(title);
+    trailerArray = [];
     searchForMovies(title);
 }
 
@@ -71,10 +127,12 @@ function searchForMovies(userInput) {
       return response.json();
     })
     .then(function (data) {
-      console.log('Search results are', data)
       var { results } = data; // destructuring results from data;
       var { id } = results[0];
+      dataArray = [results[0]];
       getReview(id);
+
+      
       // run displayReviews function here
       // displayReviews();
     });
@@ -94,11 +152,11 @@ function getReview(Movie_id) {
       return response.json();
     })
     .then(function (data) {
-      console.log('Movie reviews are', data);
       var { results } = data; // destructuring results from data;
-      // what do you want to do with your array of review objects?
+      dataArray.push(results); 
+      YoutubeSearch(dataArray[0].original_title);
       // maybe you run displayReviews function here
-      displayReviews(results);
+      // displayReviews(results);
     });
 
 };
@@ -126,81 +184,50 @@ fetch(url, options)
   .then(response => {
 return response.json();  
 }).then(data => {
-  console.log(data);
-  let dataArray = [data];
+  dataArray.push(data);
   createElements(dataArray);
 })
 .catch(error => console.log(error))
 
 //takes array of fetch data objects from tmdb, utelly, and youtubesearch
 function createElements(objArray){
-    let titleEl = document.querySelector('.movie-title');
-    let descriptionEl = document.querySelector('.description-other');
-    let trailerEl = document.querySelector('.trailor-div');
-
+  trailerEl.style.display = 'block';
+  console.log(objArray);
     //working with youtube search results object
     //creates array of videos filtered from non-video types
-    let trailerArray = [];
-    for(let i = 0; i < objArray[0].items.length; i++){
-        if(objArray[0].items[i].type === "video"){
+    for(let i = 0; i < objArray[2].items.length; i++){
+        if(objArray[2].items[i].type === "video"){
             let videoObj = {
-                title: objArray[0].items[i].title,
-                url: objArray[0].items[i].url,
-                id: objArray[0].items[i].id
+                title: objArray[2].items[i].title,
+                url: objArray[2].items[i].url,
+                id: objArray[2].items[i].id
             }
             //may need to assign first element in array differently
             trailerArray.push(videoObj);
         }
     }
 
-    videoEl = document.createElement('iframe');
-    videoEl.src = "https://www.youtube.com/embed/" + trailerArray[0].id;
-    videoEl.width = "420";
-    videoEl.height= "345";
+    videoEl.src = "https://www.youtube.com/embed/" + trailerArray[2].id;
+    videoTitleEl.textContent = trailerArray[2].title;
 
-    let previousVideoBtn = document.createElement("button");
-    previousVideoBtn.innerHTML = "Previous";
-    let nextVideoBtn = document.createElement("button");
-    nextVideoBtn.innerHTML = "Next";
+    titleEl.textContent = dataArray[0].original_title;
+    descriptionEl.innerHTML = dataArray[0].overview + "<br>" + "Release Date: " + dataArray[0].release_date + "<br>" + "Rating: " + dataArray[0].vote_average
++ "/10";
 
-    previousVideoBtn.addEventListener('click', function(){
-        let index;
-        for(let i = 0; i < trailerArray.length; i++){
-            if(videoEl.src === trailerArray[i].url){
-               index = i; 
-            }
-        }
-        index--;
-        if(index < 0){
-            index = trailerArray.length - 1;
-        }
-        videoEl.src = "https://www.youtube.com/embed/" + trailerArray[index].id;
-        videoTitleEl.textContent = trailerArray[index].title;
-    });
+    for(let i = 0; i < dataArray[1].length; i++){
+      let reviewCardEl = document.createElement('div');
+      let reviewContentEl = document.createElement('p');
 
-    nextVideoBtn.addEventListener('click', function(){
-        let index;
-        for(let i = 0; i < trailerArray.length; i++){
-            if(videoEl.src === trailerArray[i].url){
-               index = i; 
-            }
-        }
-        index++;
-        if(index > trailerArray.length -1){
-            index = 0;
-        }
-        videoEl.src = "https://www.youtube.com/embed/" + trailerArray[index].id;
-        videoTitleEl.textContent = trailerArray[index].title;
-    });
+      // console.log(dataArray[1][i].content)
+
+      reviewContentEl.innerHTML = dataArray[1][i].content + "<br>" + "- " + dataArray[1][i].author;
+      
+      reviewCardEl.appendChild(reviewContentEl);
+      reviewEl.appendChild(reviewCardEl);
+    }
 
 
-    videoTitleEl = document.createElement('h3');
-    videoTitleEl.textContent = trailerArray[0].title;
+    
 
-    trailerEl.textContent = "";
-    trailerEl.appendChild(videoEl);
-    trailerEl.appendChild(previousVideoBtn);
-    trailerEl.appendChild(nextVideoBtn);
-    trailerEl.appendChild(videoTitleEl);
   }
 }
