@@ -54,8 +54,70 @@ submitBtn.onclick = function(){
     searchForMovies(title);
 }
 
-function localStorage(){
+function localStorage() {
+  var historyList = document.querySelector("#history-list");
+  var searchHistory = [];
+
+  function renderSearches() {
+
+    // Render a new li for each search
+    for (var i = 0; i < searchHistory.length; i++) { 
+      var History = searchHistory[i];
+
+      var li = document.createElement("li");
+      li.textContent = History;
+      li.setAttribute("data-index", i);
+
+      var button = document.createElement("button");
+      button.textContent = "Reviewed ✔️";
+
+      li.appendChild(button);
+      historyList.appendChild(li);
+    }
+
+  }
+
+  // This function is being called below and will run when the page loads.
+  function init() {
+    // Get stored todos from localStorage
+    var storedHistory = JSON.parse(localStorage.getItem("SearchHistory"));//
+
+    // If todos were retrieved from localStorage, update the todos array to it
+    if (storedHistory !== null) {
+      searchHistory = storedHistory;
+    }
+
+    // This is a helper function that will render todos to the DOM
+    renderSearches();
+  }
+
+  function storedHistory() {
+    // Stringify and set key in localStorage to search history array
+    localStorage.setItem("SearchHistory", JSON.stringify(searchHistory));
+  }
   
+  // Add submit event to form
+  titleInputEl.addEventListener("submit", function(event) {
+    event.preventDefault();
+  
+    var titleText = titleInputEl.value.trim();
+  
+    // Return from function early if submitted todoText is blank
+    if (titleText === "") {
+      return;
+    }
+  
+    // Add new todoText to todos array, clear the input
+    searchHistory.push(titleText);
+    titleInputEl.value = ""; 
+  
+    // Store updated todos in localStorage, re-render the list
+    storedHistory();
+    renderSearches();
+  });
+
+init()
+
 }
 
 
