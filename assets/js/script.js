@@ -109,8 +109,8 @@ submitBtn.addEventListener('click',function(){
     herosectionEl.classList.add('animate__lightSpeedOutLeft');
     trailerEl.classList.add('animate__lightSpeedInRight');
 
-    let title = titleInputEl.value;
-
+    let title = titleInputEl.value.trim();
+    console.log(title);
     titleInputEl.value = "";
 
     //run fetch functions here
