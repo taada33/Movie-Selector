@@ -1,132 +1,56 @@
-/* reset default margins and padding */
-* {
-  margin: 0;
-  padding: 0;
-}
+/* body{ */
+    /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToAw_7skWhSB6gA_axyCzYwunLxNvLxSLTFA&usqp=CAU); */
+    /* z-index: 1; */
+/* } */
 
-/* set the font family and size for all elements */
-body {
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  background-image: url('image.jpg');
-}
-
-/* style the header element */
-header {
-  background: linear-gradient(#e66465, #9198e5);
-  padding: 20px;
-  text-align: center;
-  
-}
-
-/* style the h1 element within the header */
-header h1 {
-  color: rgb(248, 18, 18);
-  font-size: 3em;
-  margin-bottom: 10px;
-}
-
-
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-/* style the div with an ID of "modal" */
-/* .modal {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  display: none;
-  padding: 20px;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+/* .description-other{
+    display: none;
 } */
 
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+.hero{
+  position:fixed;
+  width: 100%;
+  z-index: 1;
 }
 
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+#movie-finder{
+  display: block;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+.description-other{
+  /* display:inline; */
+  --animate-duration: 2s;
+  /* --animate-delay: 10s; */
+  max-height: 30rem;
 }
 
-/* style the h2 element within the div */
-div h2 {
-  color: rgb(228, 243, 20);
-  font-size: 2.5em;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  text-align:center;
+.trailor-div{
+  display:none;
 }
 
-div {
-  color: rgb(194, 226, 13);
-  text-align: center;
-  
+.image img {
+  width: auto;
+  height: auto;
+  max-width: 256px;
+  max-height: 256px;
 }
 
-p {
-  color:rgb(243, 247, 26);
-  text-align: center;
-  font-size: 1.5em;
+iframe{
+  height: 300px;
+  width: 600px;
 }
 
-/* style the div with an ID of "search history" */
-#search history {
-  background-color: #f4f4f4;
-  padding: 10px;
-}
-button{
-  background-color: #f9004d;
-  color: blanchedalmond;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 15px 30px;
-  border: 2px solid #070203;
-  border-radius: 5px;
-  transition: .4s;
+div{
+  margin: 0;
 }
 
-input{
-  background-color: #fff;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 15px 30px;
-  border: 2px solid #070203;
-  border-radius: 5px;
-  transition: .4s;
+#trailer-card{
+  --animate-duration: 2s;
+  max-height: 27.5rem;
 }
 
-button:hover{
-  background-color: transparent;
-  
-  border: 2px solid #f9004d;
-  cursor: pointer;
-}
+/* 
+.card{
+  height: 20rem;
+  width: 20rem;
+} */
