@@ -50,10 +50,14 @@ submitBtn.onclick = function () {
     //run fetch functions here
     localStorageData();
     YoutubeSearch(title);
-    searchForMovies(title);
+    searchForMovies(title);//searchForMovie(button text)
+
 };
 
+
+
 function localStorageData() {
+
     var historyList = document.querySelector("#history-list");
     var searchHistory = [];
 
@@ -62,15 +66,28 @@ function localStorageData() {
         for (var i = 0; i < searchHistory.length; i++) {
             var History = searchHistory[i];
 
+            // var titleButton = document.createElement("button");
+
             var li = document.createElement("li");
-            li.textContent = History;
+            var para = document.createElement("p")
+            para.textContent = History;
+            li.appendChild(para)
+            para.addEventListener("click",recall)
+
+            function recall(event) {
+                var titleHistory = event.target.textContent
+ 
+
+                YoutubeSearch(titleHistory);
+                searchForMovies(titleHistory);
+            }
+            
             li.setAttribute("data-index", i);
 
             var button = document.createElement("button");
             button.textContent = "Watched ✔️";
 
             function tgl(){
-
 
                 if (button.textContent == "Watched ✔️") {
                     button.textContent  = "Not Watched";
@@ -80,13 +97,14 @@ function localStorageData() {
                     button.textContent  = "Watched ✔️";
                 }
             }
-            
+
             button.addEventListener("click",tgl)
 
             li.appendChild(button);
             historyList.appendChild(li);
         }
     }
+// make button, - api call 
 
     // This function is being called below and will run when the page loads.
     function init() {
