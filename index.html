@@ -11,30 +11,31 @@
 </head>
 <body>
     
-    <section class="hero is-info is-fullheight is-responsive animate__animated">
-        <div class="hero-body container animate__animated">
-          <p id="movie-finder"class="title is-1 animate__animated animate__rubberBand">
-            Movie Finder
-          </p>
-          <button id="modalBtn" class="button is-primary is-responsive">Search by Movie Title</button>
-        </div>
-    </section>
-      
-      <div class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="box">
-                <div class="field">
-                    <label class="label">Enter a Movie Title</label>
-                    <div class="control">
-                      <input id="titleInput" class="input" type="text" placeholder="Movie Title">
-                      <input id="submitBtn" class="button" type="submit" value="Search">
-                    </div>
-                  </div>
+        <section class="hero is-info is-fullheight is-responsive animate__animated">
+            <div class="hero-body container animate__animated">
+            <p id="movie-finder"class="title is-1 animate__animated animate__rubberBand">
+                Movie Finder
+            </p>
+            <button id="modalBtn" class="button is-primary m-5">Search by Movie Title</button>
+            <div class="history-list"></div>
             </div>
+        </section>
+      
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="box">
+                    <div class="field">
+                        <label class="label">Enter a Movie Title</label>
+                        <div class="control">
+                        <input id="titleInput" class="input" type="text" placeholder="Movie Title">
+                        <input id="submitBtn" class="button" type="submit" value="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
         </div>
-        <button class="modal-close is-large" aria-label="close"></button>
-      </div>
 
       <div id="columns-container" class="columns is-multiline">
         <div class="description-other column is-half-desktop is-full-mobile is-full-tablet animate__animated is-responsive">

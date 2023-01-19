@@ -115,6 +115,7 @@ submitBtn.addEventListener('click',function(){
 
     //run fetch functions here
     dataArray = [];
+    updateLocalStorage(title);
     searchForMovies(title);
 })
 
@@ -217,6 +218,76 @@ function platformSearch(title){
     })
 }
 
+
+var historyList = document.querySelector(".history-list");
+var searchHistory = [];
+getLocalStorage();
+
+
+function recall(event) {
+  var titleHistory = event.target.textContent
+  searchForMovies(titleHistory);
+}
+
+function tgl(){
+
+  if (event.target.textContent == "Watched ✔️") {
+    event.target.textContent  = "Not Watched";
+  }else if(event.target.textContent  == "Not Watched") {
+    event.target.textContent  = "Watched ✔️";
+  }
+}
+
+function renderSearches(movieHistory) {
+  // Render a new li for each search
+  historyList.textContent = "";
+  for (var i = 0; i < movieHistory.length; i++) {
+      // var titleButton = document.createElement("button");
+
+      var li = document.createElement("li");
+      var para = document.createElement("p");
+      para.textContent = searchHistory[i];
+      li.appendChild(para)
+      para.addEventListener("click",recall(event))
+      
+      li.setAttribute("data-index", i);
+
+      var button = document.createElement("button");
+      button.textContent = "Watched ✔️";
+
+      button.addEventListener("click",tgl())
+
+      li.appendChild(button);
+      historyList.appendChild(li);
+  }
+}
+
+// make button, - api call 
+
+  // This function is being called below and will run when the page loads.
+function getLocalStorage() {
+    // Get stored todos from localStorage
+    var storedHistory = JSON.parse(localStorage.getItem("SearchHistory")); //
+    let movieHistory;
+    // If todos were retrieved from localStorage, update the todos array to it
+    if (storedHistory !== null) {
+        movieHistory = storedHistory;
+        renderSearches(movieHistory);
+    }
+}
+
+  function updateLocalStorage(title) {
+    var storedHistory = JSON.parse(localStorage.getItem("SearchHistory"));
+    if (storedHistory !== null) {
+      searchHistory.push(title);
+      
+    }else{
+      searchHistory = [storedHistory];
+    }
+      // Stringify and set key in localStorage to search history array
+      localStorage.setItem("SearchHistory", JSON.stringify(searchHistory));
+    }
+
 function createElements(objArray){
     trailerEl.style.display = 'block';
     movieCardContainerEl.style.display = 'block';
@@ -269,5 +340,7 @@ function createElements(objArray){
       }
       
 }
+
+
 
 
