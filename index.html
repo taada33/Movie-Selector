@@ -4,33 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- <link rel="stylesheet" href="./assets/css/style.css"> -->
     <!-- some css framework -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="jquery-3.6.1.min.js"></script>
     <title>Movie Selector</title>
 </head>
 <body>
     <header>
-        <h1 class="text-3xl font-bold underline text-clifford">Movie Selector</h1>
+        <h1 class="">Movie Selector</h1>
     </header>
 
-        <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Movie Criteria</button>
+    <button id="myBtn" class="button link js-modal-trigger" data-target="modal-js-example">
+        Movie Criteria
+      </button>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
+    <div class="modal">
+        <div class="modal-background"></div>
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id = "user-form">
-                <input id="titleInput" type="text" placeholder="Movie Title">
-                <input id="actorInput" type="text" placeholder="Actor">
-                <input id="genreInput" type="text" placeholder="Genre">
-                <button id="submitBtn" type="submit">Submit</button>
-            </form>
+            <input id="titleInput" class="input" type="text" placeholder="Movie Title">
+            <button id="submitBtn" type="submit">Submit</button>
         </div>
-    </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
 
     <div class="content">
         <h2 class="movie-title">Search for a Movie!</h2>
@@ -42,7 +38,7 @@
     <div id="search history">
         <p>previously searched movies</p>
     </div>
-<!-- maybe use jquery -->
+
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 let titleEl = document.querySelector('.movie-title');
 let descriptionEl = document.querySelector('.description-other');
 let trailerEl = document.querySelector('.trailor-div');
-let reviewEl = document.querySelector('.review-container')
+let reviewEl = document.querySelector('.review-container');
 
 trailerEl.style.display = 'none';
 
@@ -56,6 +56,23 @@ nextVideoBtn.addEventListener('click', function(){
   videoTitleEl.textContent = trailerArray[index].title;
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  // Functions to open and close a modal
+  function openModal($el) {
+    $el.classList.add('is-active');
+  }
+
+  function closeModal($el) {
+    $el.classList.remove('is-active');
+  }
+
+  function closeAllModals() {
+    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+      closeModal($modal);
+    });
+  }
+
+
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -68,34 +85,48 @@ var span = document.getElementsByClassName("close")[0];
 
 
 let titleInputEl = document.getElementById('titleInput');
-let actorInputEl = document.getElementById('actorInput');
-let genreInputEl = document.getElementById('genreInput');
 let submitBtn = document.getElementById("submitBtn");
+let modalEl = document.querySelector(".modal");
 
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-  }
-  
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+btn.addEventListener('click', () => {
+  openModal(modalEl);
 
-  // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+
+  // Add a click event on buttons to open a specific modal
+  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+
+    btn.addEventListener('click', () => {
+      openModal($target);
+    });
+  });
+
+  // Add a click event on various child elements to close the parent modal
+  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+    const $target = $close.closest('.modal');
+
+    $close.addEventListener('click', () => {
+      closeModal($target);
+    });
+  });
+
+  // Add a keyboard event to close all modals
+  document.addEventListener('keydown', (event) => {
+    const e = event || window.event;
+
+    if (e.keyCode === 27) { // Escape key
+      closeAllModals();
     }
-}
+  });
+});
+
 
 submitBtn.onclick = function(){
     event.preventDefault();
 
     //parameters for fetch urls
     let title = titleInputEl.value;
-    let actor = actorInputEl.value;
-    let genre = genreInputEl.value;
 
     titleInputEl.value = "";
     actorInputEl.value = "";
@@ -106,6 +137,8 @@ submitBtn.onclick = function(){
     // console.log("title: " + title + " Actor: " + actor + " Genre: " + genre)
 
     //run fetch functions here
+    dataArray = [];
+    console.log(dataArray)
     trailerArray = [];
     searchForMovies(title);
 }
@@ -192,7 +225,6 @@ return response.json();
 //takes array of fetch data objects from tmdb, utelly, and youtubesearch
 function createElements(objArray){
   trailerEl.style.display = 'block';
-  console.log(objArray);
     //working with youtube search results object
     //creates array of videos filtered from non-video types
     for(let i = 0; i < objArray[2].items.length; i++){
@@ -214,6 +246,7 @@ function createElements(objArray){
     descriptionEl.innerHTML = dataArray[0].overview + "<br>" + "Release Date: " + dataArray[0].release_date + "<br>" + "Rating: " + dataArray[0].vote_average
 + "/10";
 
+    reviewEl.textContent = "";
     for(let i = 0; i < dataArray[1].length; i++){
       let reviewCardEl = document.createElement('div');
       let reviewContentEl = document.createElement('p');
