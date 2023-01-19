@@ -9,11 +9,11 @@ let herosectionEl = document.querySelector('.hero')
 let columnsContainerEl = document.querySelector('#columns-container');
 let movieCardContainerEl = document.querySelector('.description-other');
 let movieCardEl = document.querySelector('#movie-card');
-let trailerCardEl = document.querySelector('#trailer-card')
+let trailerCardEl = document.querySelector('#trailer-card');
 let moviePosterEl = document.querySelector('#movie-poster');
 let titleEl = document.querySelector('#movie-title');
 let descriptionEl = document.querySelector('#description');
-let releaseDateEl = document.querySelector("#release-date")
+let releaseDateEl = document.querySelector("#release-date");
 
 movieCardContainerEl.style.display = 'none';
 
@@ -26,10 +26,10 @@ reviewEl.style.display = 'none';
 trailerCardEl.style.display = 'none';
 
 let previousVideoBtn = document.createElement("button");
-previousVideoBtn.classList.add('button')
+previousVideoBtn.classList.add('button', 'video-button')
 previousVideoBtn.innerHTML = "Previous";
 let nextVideoBtn = document.createElement("button");
-nextVideoBtn.classList.add('button')
+nextVideoBtn.classList.add('button', 'video-button')
 nextVideoBtn.innerHTML = "Next";
 
 videoTitleEl = document.createElement('h3');
@@ -255,10 +255,11 @@ function createElements(objArray){
         // console.log(dataArray[1][i].content)
         reviewCardEl.innerHTML = dataArray[1][i].content + "<br>" + "- " + dataArray[1][i].author;
         // reviewContentEl.innerHTML = dataArray[1][i].content + "<br>" + "- " + dataArray[1][i].author;
-        reviewContentEl.classList.add('card-content');
+        reviewCardEl.classList.add('card-content', 'reviewcard','p-6');
   
         // reviewCardEl.appendChild(reviewContentEl);
-        reviewCardEl.classList.add('card', 'column');
+        reviewCardEl.classList.add('card', 'column', 'animate__animated', 'animate__zoomIn', 'is-full-mobile', 'is-one-quarter-desktop', 'is-full-tablet');
+        
         // reviewCardEl.style.margin = '0';
         reviewCardEl.style.overflow = 'scroll';
         reviewCardEl.setAttribute('style', 'overflow-x: hidden')

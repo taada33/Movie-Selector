@@ -6,6 +6,12 @@
 /* .description-other{
     display: none;
 } */
+.content{
+  padding: 5px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 
 .hero{
   position:fixed;
@@ -19,13 +25,18 @@
 
 .description-other{
   /* display:inline; */
-  --animate-duration: 2s;
+  /* --animate-duration: 2s; */
   /* --animate-delay: 10s; */
   max-height: 30rem;
 }
 
 .trailor-div{
   display:none;
+}
+
+.video-button{
+  margin-bottom: 30px;
+  margin: 10px;
 }
 
 .image img {
@@ -37,7 +48,7 @@
 
 iframe{
   height: 300px;
-  width: 600px;
+  width: 80%;
 }
 
 div{
@@ -45,12 +56,6 @@ div{
 }
 
 #trailer-card{
-  --animate-duration: 2s;
+  /* --animate-duration: 2s; */
   max-height: 27.5rem;
 }
-
-/* 
-.card{
-  height: 20rem;
-  width: 20rem;
-} */
