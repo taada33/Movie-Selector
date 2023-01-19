@@ -175,7 +175,7 @@ function YoutubeSearch(title) {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '381be7cdb6msh9b7a471bdd1789cp1942dajsn86da04c44990',
+            'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
             'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
         }
     };
@@ -225,7 +225,8 @@ getLocalStorage();
 
 
 function recall(event) {
-  var titleHistory = event.target.textContent
+  console.log(event)
+  // var titleHistory = event.target.textContent
   searchForMovies(titleHistory);
 }
 
@@ -255,7 +256,7 @@ function renderSearches(movieHistory) {
       var button = document.createElement("button");
       button.textContent = "Watched ✔️";
 
-      button.addEventListener("click",tgl())
+      button.addEventListener("click",tgl(event))
 
       li.appendChild(button);
       historyList.appendChild(li);
