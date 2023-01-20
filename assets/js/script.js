@@ -1,10 +1,14 @@
 let modalBtn = document.querySelector('#modalBtn');
-let modalEl = document.querySelector('.modal');
+let modalEl = document.querySelector('.modal-input');
 let modalBackgroundEl = document.querySelector('.modal-background');
 let closeModalEl = document.querySelector('.modal-close');
 let submitBtn = document.querySelector('#submitBtn')
 let titleInput = document.querySelector('#titleInput');
 let herosectionEl = document.querySelector('.hero')
+let modalAlertEl = document.querySelector('.modal-alert');
+let modalAlertExitBtn = document.querySelector('.exit-modal-alert')
+let errorMessageEl = document.querySelector('.error-message');
+let returnMenuBtn = document.querySelector('#mainMenuBtn');
 
 let columnsContainerEl = document.querySelector('#columns-container');
 let movieCardContainerEl = document.querySelector('.description-other');
@@ -47,6 +51,8 @@ trailerEl.appendChild(nextVideoBtn);
 
 let dataArray = [];
 
+
+
 previousVideoBtn.addEventListener('click', function(){
   let index;
   for(let i = 0; i < dataArray[2].items.length; i++){
@@ -58,7 +64,6 @@ previousVideoBtn.addEventListener('click', function(){
   if(index < 0){
       index = dataArray[2].items.length -1;
   }
-  console.log(index)
   videoEl.src = "https://www.youtube.com/embed/" + dataArray[2].items[index].id;
   videoTitleEl.textContent = dataArray[2].items[index].title;
   
@@ -103,20 +108,26 @@ modalBackgroundEl.addEventListener('click', function(){
     modalEl.classList.remove('is-active');
 })
 
+modalAlertExitBtn.addEventListener('click', function(){
+  modalAlertEl.classList.remove('is-active');
+  modalEl.classList.add('is-active');
+})
+
+returnMenuBtn.addEventListener('click', function(){
+  // console.log("here");
+  location.reload(true);
+})
+
 submitBtn.addEventListener('click',function(){
     event.preventDefault();    
     modalEl.classList.remove('is-active');
-    herosectionEl.classList.add('animate__lightSpeedOutLeft');
-    trailerEl.classList.add('animate__lightSpeedInRight');
-
     let title = titleInputEl.value.trim();
-    console.log(title);
-    titleInputEl.value = "";
-
-    //run fetch functions here
-    dataArray = [];
-    updateLocalStorage(title);
-    searchForMovies(title);
+    if(title === ""){
+      modalAlertEl.classList.add('is-active');
+      errorMessageEl.textContent = "Please enter a movie title."
+    }else{
+      searchForMovies(title);
+    }
 })
 
 titleInput.addEventListener("keydown", function(event){
@@ -136,10 +147,24 @@ function searchForMovies(userInput) {
         return response.json();
         })
         .then(function (data) {
-        var { results } = data; // destructuring results from data;
-        var { id } = results[0];
-        dataArray = [results[0]];
-        getReview(id);
+          if(data.total_results === 0){
+            modalAlertEl.classList.add('is-active');
+            errorMessageEl.textContent = "Please enter valid movie title.";
+            titleInput.value = "";
+          }else{
+            herosectionEl.classList.add('animate__lightSpeedOutLeft');
+            trailerEl.classList.add('animate__lightSpeedInRight');
+            titleInputEl.value = "";
+        
+            //run fetch functions here
+            dataArray = [];
+            updateLocalStorage(userInput);
+            var { results } = data; // destructuring results from data;
+            var { id } = results[0];
+            dataArray = [results[0]];
+            getReview(id);
+          }
+       
 
         
         // run displayReviews function here
@@ -175,7 +200,7 @@ function YoutubeSearch(title) {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '6dd73d4db3msh0923a1f1b627dd8p108117jsnbe85780d96b2',
+            'X-RapidAPI-Key': 'b45a43e0femshd4ce85fcc41ed9ap17a335jsnae8c3f2d08f7',
             'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
         }
     };
@@ -227,17 +252,9 @@ getLocalStorage();
 function recall(event) {
   console.log(event)
   // var titleHistory = event.target.textContent
-  searchForMovies(titleHistory);
+  // searchForMovies(titleHistory);
 }
 
-function tgl(){
-
-  if (event.target.textContent == "Watched ✔️") {
-    event.target.textContent  = "Not Watched";
-  }else if(event.target.textContent  == "Not Watched") {
-    event.target.textContent  = "Watched ✔️";
-  }
-}
 
 function renderSearches(movieHistory) {
   // Render a new li for each search
@@ -246,19 +263,29 @@ function renderSearches(movieHistory) {
       // var titleButton = document.createElement("button");
 
       var li = document.createElement("li");
-      var para = document.createElement("p");
-      para.textContent = searchHistory[i];
+      var para = document.createElement("a");
+      para.textContent = movieHistory[i];
       li.appendChild(para)
-      para.addEventListener("click",recall(event))
+      para.addEventListener("click",function(event){
+        var titleHistory = event.target.textContent
+        titleInputEl.value = titleHistory;
+        submitBtn.click();
+      })
       
       li.setAttribute("data-index", i);
 
       var button = document.createElement("button");
       button.textContent = "Watched ✔️";
 
-      button.addEventListener("click",tgl(event))
+      button.addEventListener("click",function(event){
+        if (event.target.textContent == "Watched ✔️") {
+          event.target.textContent  = "Not Watched";
+        }else if(event.target.textContent  == "Not Watched") {
+          event.target.textContent  = "Watched ✔️";
+        }
+      })
 
-      li.appendChild(button);
+      // li.appendChild(button);
       historyList.appendChild(li);
   }
 }
@@ -279,14 +306,15 @@ function getLocalStorage() {
 
   function updateLocalStorage(title) {
     var storedHistory = JSON.parse(localStorage.getItem("SearchHistory"));
+    // console.log(storedHistory);
     if (storedHistory !== null) {
-      searchHistory.push(title);
-      
+      storedHistory.push(title);
     }else{
-      searchHistory = [storedHistory];
+      storedHistory = [title];
     }
+    // console.log(storedHistory);
       // Stringify and set key in localStorage to search history array
-      localStorage.setItem("SearchHistory", JSON.stringify(searchHistory));
+      localStorage.setItem("SearchHistory", JSON.stringify(storedHistory));
     }
 
 function createElements(objArray){
