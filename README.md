@@ -1,6 +1,8 @@
 # Movie-Selector
 
-This project was created by group of students to improve the knowledge as result of the learned topics covered in practice.
+This application allows users to search for movies and retrieve overviews, reviews, and trailers to inform the user's decision on what movie to watch.
+This project was created by group of students to improve their knowledge as a result of the learned topics covered in class.
+
 
 User story: 
 
@@ -16,21 +18,15 @@ Given that I am looking for user feedback on the movie, review cards are produce
 When I click on a specific movie on the movie watch list, the details, trailer, and reviews are generated for the movie chosen.
 
 
-
-
-
-
-
 Technology used:
 
-TMDB APIs - To get reviews about movie
-YOUTUBE APIs -To get trailer link from youtube
-BULMA CSS - Provide style CSS
-ANIMATE CSS - Provide animate CSS
+TMDB API - To get reviews / descriptions about movies
+YOUTUBE API -To get trailer links from youtube
+BULMA CSS - css framework used
+ANIMATE CSS - css animation library
 
 
-Deployed website link:
-
+To view the completed website, please visit [https://taada33.github.io/Movie-Selector/](https://taada33.github.io/Movie-Selector/).
 
 
 License:
