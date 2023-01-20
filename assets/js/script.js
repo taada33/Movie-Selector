@@ -216,8 +216,8 @@ function YoutubeSearch(title) {
         }
       }
         dataArray.push(data);
-
-      platformSearch(dataArray)
+        createElements(dataArray);
+      // platformSearch(dataArray)
     })
     .catch(error => console.log(error))
 }
@@ -324,7 +324,7 @@ function createElements(objArray){
     reviewEl.style.display = 'block';
     trailerCardEl.classList.add('animate__lightSpeedInRight')
     movieCardContainerEl.classList.add('animate__lightSpeedInRight')
-    console.log(objArray);
+    // console.log(objArray);
       //working with youtube search results object
       //creates array of videos filtered from non-video types
     videoEl.src = "https://www.youtube.com/embed/" + dataArray[2].items[0].id;
@@ -335,17 +335,17 @@ function createElements(objArray){
       titleEl.textContent = dataArray[0].original_title;
       releaseDateEl.textContent = "Release Date: " + dataArray[0].release_date
       descriptionEl.textContent = dataArray[0].overview + " Rating: " + dataArray[0].vote_average + "/10 ";
-      if(dataArray[3] !== null){
-        for(let i = 0; i < dataArray[3].length; i++){
-            if (dataArray[3][i].Watch != 'Walt Disney Parks & Resorts Technology'){
-              let anchorEl = document.createElement('a');
-              anchorEl.innerHTML = dataArray[3][i].Watch.split(' ')[0] + "<br>"
-              anchorEl.href = dataArray[3][i].WatchUrl
-              anchorEl.target = '_blank'
-              movieCardEl.appendChild(anchorEl)
-              }
-          }
-      }
+      // if(dataArray[3] !== null){
+      //   for(let i = 0; i < dataArray[3].length; i++){
+      //       if (dataArray[3][i].Watch != 'Walt Disney Parks & Resorts Technology'){
+      //         let anchorEl = document.createElement('a');
+      //         anchorEl.innerHTML = dataArray[3][i].Watch.split(' ')[0] + "<br>"
+      //         anchorEl.href = dataArray[3][i].WatchUrl
+      //         anchorEl.target = '_blank'
+      //         movieCardEl.appendChild(anchorEl)
+      //         }
+      //     }
+      // }
       
   
       for(let i = 0; i < dataArray[1].length; i++){
